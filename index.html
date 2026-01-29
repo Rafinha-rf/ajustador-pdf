@@ -51,23 +51,19 @@
             const file = fileInput.files[0];
             const arrayBuffer = await file.arrayBuffer();
 
-            // 1. Carrega o PDF original
             const pdfDoc = await PDFDocument.load(arrayBuffer);
 
-            // 2. Salva o PDF removendo compressões de objetos (objetos individuais)
-            // O 'useObjectStreams: false' é a chave para o FPDI conseguir ler
+
             const pdfBytes = await pdfDoc.save({ useObjectStreams: false });
 
-            // 3. Hack técnico: Forçar o Header do PDF para 1.4
-            // Como o FPDI checa apenas os primeiros bytes, mudar o header 
-            // após a reestruturação do pdf-lib costuma funcionar perfeitamente.
+
             const uint8Array = new Uint8Array(pdfBytes);
             const header = "%PDF-1.4";
             for (let i = 0; i < header.length; i++) {
                 uint8Array[i] = header.charCodeAt(i);
             }
 
-            // 4. Download do arquivo corrigido
+
             const blob = new Blob([uint8Array], { type: 'application/pdf' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
