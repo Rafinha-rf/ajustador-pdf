@@ -62,3 +62,38 @@ button:disabled {
     margin-top: 20px; 
     font-weight: 500; 
 }
+
+.file-list {
+    margin-top: 20px;
+    text-align: left;
+    max-height: 300px;
+    overflow-y: auto;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+}
+
+.file-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f9f9f9;
+    padding: 8px 12px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    color: #333;
+}
+
+.download-link {
+    background: #3498db;
+    color: white;
+    text-decoration: none;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+.download-link:hover {
+    background: #2980b9;
+}
