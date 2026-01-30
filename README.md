@@ -14,7 +14,7 @@ Este utilitário reconstrói o PDF internamente, remove a compressão de objetos
 * Ideal para lidar com boletos e documentos sensíveis, mantendo a conformidade com a LGPD.
 
 ### 🛠️ Como usar
-1. Acesse o link do projeto (ex: `https://rafinha-rf.github.io/ajustador-pdf`).
+1. Acesse o link do projeto https://rafinha-rf.github.io/ajustador-pdf
 2. Selecione o arquivo PDF do boleto que está apresentando erro.
 3. Clique em **"Converter para PDF 1.4"**.
 4. O download do arquivo ajustado (com o prefixo `BOLETO_OK_`) começará automaticamente.
