@@ -18,20 +18,15 @@ document.getElementById('processBtn').addEventListener('click', async () => {
         const file = fileInput.files[0];
         const arrayBuffer = await file.arrayBuffer();
 
-        // Carrega o PDF original
         const pdfDoc = await PDFDocument.load(arrayBuffer);
-
-        // Salva sem Object Streams (formato legível para FPDI free)
         const pdfBytes = await pdfDoc.save({ useObjectStreams: false });
 
-        // Hack para forçar o header PDF 1.4
         const uint8Array = new Uint8Array(pdfBytes);
         const header = "%PDF-1.4";
         for (let i = 0; i < header.length; i++) {
             uint8Array[i] = header.charCodeAt(i);
         }
 
-        // Gera o download
         const blob = new Blob([uint8Array], { type: 'application/pdf' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
