@@ -2,25 +2,16 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ajustador PDF 1.4 para FPDI</title>
     <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
-    <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #eceff1; margin: 0; }
-        .card { background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center; max-width: 450px; width: 90%; }
-        h1 { color: #2c3e50; margin-bottom: 10px; }
-        p { color: #7f8c8d; margin-bottom: 25px; line-height: 1.5; }
-        .upload-area { border: 2px dashed #3498db; padding: 20px; border-radius: 8px; background: #f8fbff; margin-bottom: 20px; }
-        button { background: #27ae60; color: white; border: none; padding: 12px 25px; border-radius: 6px; cursor: pointer; font-size: 1rem; font-weight: 600; transition: background 0.3s; }
-        button:hover { background: #219150; }
-        button:disabled { background: #bdc3c7; cursor: not-allowed; }
-        #status { margin-top: 20px; font-weight: 500; }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="card">
     <h1>Compatibilizador de PDF</h1>
-    <p>Esta ferramenta converte PDFs 1.7 (compactados) para <b>PDF 1.4</b>, permitindo o upload no sistema de boletos.</p>
+    <p>Esta ferramenta converte PDFs 1.7 (compactados) para <b>PDF 1.4</b>.</p>
     
     <div class="upload-area">
         <input type="file" id="pdfInput" accept=".pdf">
@@ -30,60 +21,6 @@
     <div id="status"></div>
 </div>
 
-<script>
-    const { PDFDocument } = PDFLib;
-
-    document.getElementById('processBtn').addEventListener('click', async () => {
-        const fileInput = document.getElementById('pdfInput');
-        const status = document.getElementById('status');
-        const btn = document.getElementById('processBtn');
-
-        if (fileInput.files.length === 0) {
-            alert('Por favor, selecione um boleto.');
-            return;
-        }
-
-        try {
-            status.style.color = '#3498db';
-            status.innerText = 'Processando e reestruturando...';
-            btn.disabled = true;
-
-            const file = fileInput.files[0];
-            const arrayBuffer = await file.arrayBuffer();
-
-            const pdfDoc = await PDFDocument.load(arrayBuffer);
-
-
-            const pdfBytes = await pdfDoc.save({ useObjectStreams: false });
-
-
-            const uint8Array = new Uint8Array(pdfBytes);
-            const header = "%PDF-1.4";
-            for (let i = 0; i < header.length; i++) {
-                uint8Array[i] = header.charCodeAt(i);
-            }
-
-
-            const blob = new Blob([uint8Array], { type: 'application/pdf' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'BOLETO_OK_' + file.name;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-
-            status.style.color = '#27ae60';
-            status.innerText = 'Sucesso! O arquivo agora é PDF 1.4.';
-        } catch (err) {
-            console.error(err);
-            status.style.color = '#e74c3c';
-            status.innerText = 'Erro ao processar. O PDF pode estar protegido por senha.';
-        } finally {
-            btn.disabled = false;
-        }
-    });
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
