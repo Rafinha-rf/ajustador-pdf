@@ -19,7 +19,12 @@ document.getElementById('processBtn').addEventListener('click', async () => {
         for (let i = 0; i < files.length; i++) {
             const file = files[i];
             status.innerText = `Processando: ${file.name}`;
-
+            
+            if (!/\.pdf/i.test(file.name)){
+                status.style.color = '#ff0000ff';
+                status.innerText = `O arquivo precisa ser pdf`;
+                return 
+            }
             const arrayBuffer = await file.arrayBuffer();
             const pdfDoc = await PDFDocument.load(arrayBuffer);
             const pdfBytes = await pdfDoc.save({ useObjectStreams: false });
