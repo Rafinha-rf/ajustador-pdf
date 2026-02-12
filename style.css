@@ -97,3 +97,29 @@ button:disabled {
 .download-link:hover {
     background: #2980b9;
 }
+
+.download-all-btn {
+    background: #e67e22;
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.3s;
+}
+
+.download-all-btn:hover {
+    background: #d35400;
+}
+
+.zip-container {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #eee;
+    display: flex;
+    justify-content: center;
+}
